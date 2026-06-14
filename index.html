@@ -1,10 +1,694 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Moja Strona</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Dawid Wecirz — computer science student building IoT, AI, cybersecurity and web projects." />
+  <title>Dawid Wecirz | CS Student & Builder</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #11182d;
+      --card: rgba(255, 255, 255, 0.075);
+      --card-strong: rgba(255, 255, 255, 0.12);
+      --text: #eef2ff;
+      --muted: #aab4d4;
+      --line: rgba(255, 255, 255, 0.14);
+      --accent: #7c3aed;
+      --accent-2: #22d3ee;
+      --good: #34d399;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124, 58, 237, 0.35), transparent 34rem),
+        radial-gradient(circle at top right, rgba(34, 211, 238, 0.22), transparent 28rem),
+        linear-gradient(135deg, #070b16 0%, var(--bg) 45%, #090d1a 100%);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: rgba(11, 16, 32, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 10px 32px rgba(124, 58, 237, 0.45);
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 92px 0 54px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 0.92rem;
+      margin-bottom: 22px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--good);
+      box-shadow: 0 0 22px var(--good);
+    }
+
+    h1 {
+      font-size: clamp(2.65rem, 7vw, 5.5rem);
+      line-height: 0.94;
+      letter-spacing: -0.075em;
+      max-width: 780px;
+    }
+
+    .hero-text {
+      color: var(--muted);
+      font-size: 1.16rem;
+      max-width: 680px;
+      margin: 24px 0 30px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      font-weight: 700;
+      transition: 0.18s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-color: transparent;
+      color: white;
+      box-shadow: 0 18px 42px rgba(124, 58, 237, 0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 690px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.35rem;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .profile-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.13), rgba(255,255,255,0.055));
+      box-shadow: var(--shadow);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .terminal {
+      position: relative;
+      background: rgba(2, 6, 23, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .terminal-top {
+      height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .circle {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .terminal-body {
+      padding: 18px;
+      font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+      font-size: 0.92rem;
+      color: #dbeafe;
+    }
+
+    .terminal-body p + p {
+      margin-top: 10px;
+    }
+
+    .comment {
+      color: #93c5fd;
+    }
+
+    .green {
+      color: #86efac;
+    }
+
+    .cyan {
+      color: #67e8f9;
+    }
+
+    section {
+      padding: 54px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.055em;
+      line-height: 1;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      max-width: 470px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .project {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 24px;
+      transition: 0.18s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-4px);
+      background: var(--card-strong);
+      border-color: rgba(255, 255, 255, 0.26);
+    }
+
+    .project-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .project h3 {
+      font-size: 1.25rem;
+      letter-spacing: -0.025em;
+      margin-bottom: 8px;
+    }
+
+    .project p {
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 6px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 999px;
+      color: #dbeafe;
+      background: rgba(255, 255, 255, 0.055);
+      font-size: 0.82rem;
+    }
+
+    .badge {
+      white-space: nowrap;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(52, 211, 153, 0.13);
+      color: #a7f3d0;
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .skill-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      padding: 18px;
+    }
+
+    .skill-card h3 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+
+    .skill-card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .about-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 24px;
+    }
+
+    .about-card p {
+      color: var(--muted);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+
+    .timeline-item {
+      border-left: 2px solid rgba(34, 211, 238, 0.6);
+      padding-left: 16px;
+    }
+
+    .timeline-item strong {
+      display: block;
+    }
+
+    .timeline-item span {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .contact {
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 6px);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.22), rgba(34, 211, 238, 0.13));
+      padding: 34px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .contact p {
+      color: var(--muted);
+      max-width: 620px;
+      margin-top: 10px;
+    }
+
+    footer {
+      padding: 34px 0 46px;
+      color: var(--muted);
+      text-align: center;
+      border-top: 1px solid var(--line);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 860px) {
+      .hero,
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .projects,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading,
+      .contact {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 66px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Witaj na mojej stronie!</h1>
-    <p>To jest moja pierwsza strona stworzona przy użyciu GitHub Pages.</p>
+  <nav>
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Go to top">
+        <span class="brand-mark">DW</span>
+        <span>Dawid Wecirz</span>
+      </a>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top" class="page">
+    <section class="hero">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> CS student building real-world systems</div>
+        <h1>AI, IoT and security projects that actually work.</h1>
+        <p class="hero-text">
+          I am a Computer Science student focused on practical engineering: embedded systems, web apps,
+          machine learning experiments, networking and cybersecurity-oriented projects.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#projects">View projects</a>
+          <a class="btn" href="https://github.com/Yeetoo45" target="_blank" rel="noreferrer">GitHub profile</a>
+          <a class="btn" href="https://github.com/Yeetoo45/IOT-security-project" target="_blank" rel="noreferrer">Best repo</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>IoT</strong><span>ESP32, MQTT, Firebase</span></div>
+          <div class="stat"><strong>AI/ML</strong><span>RL, scikit-learn, Keras</span></div>
+          <div class="stat"><strong>Full-stack</strong><span>Frontend, backend, databases</span></div>
+        </div>
+      </div>
+
+      <aside class="profile-card" aria-label="Code style summary">
+        <div class="terminal">
+          <div class="terminal-top">
+            <span class="circle"></span>
+            <span class="circle"></span>
+            <span class="circle"></span>
+          </div>
+          <div class="terminal-body">
+            <p><span class="comment">// current focus</span></p>
+            <p><span class="cyan">const</span> builder = {</p>
+            <p>&nbsp;&nbsp;interests: [<span class="green">"IoT"</span>, <span class="green">"AI"</span>, <span class="green">"Security"</span>],</p>
+            <p>&nbsp;&nbsp;stack: [<span class="green">"Python"</span>, <span class="green">"C"</span>, <span class="green">"Java"</span>, <span class="green">"JS"</span>, <span class="green">"C#"</span>],</p>
+            <p>&nbsp;&nbsp;goal: <span class="green">"build projects that prove skill"</span></p>
+            <p>};</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="projects">
+      <div class="section-heading">
+        <h2>Featured projects</h2>
+        <p>Selected projects that show practical engineering across embedded systems, AI, compilers and web development.</p>
+      </div>
+
+      <div class="projects">
+        <a class="project" href="https://github.com/Yeetoo45/IOT-security-project" target="_blank" rel="noreferrer">
+          <div class="project-top">
+            <div>
+              <h3>Smart Alarm IoT</h3>
+              <p>
+                ESP32 anti-theft alarm with WiFi provisioning, MQTT communication, Firebase dashboard,
+                ADXL345 motion detection, keypad control, battery monitoring and alarm states.
+              </p>
+            </div>
+            <span class="badge">Best project</span>
+          </div>
+          <div class="tag-list">
+            <span class="tag">ESP32</span>
+            <span class="tag">C</span>
+            <span class="tag">MQTT</span>
+            <span class="tag">Firebase</span>
+            <span class="tag">IoT Security</span>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/Yeetoo45/bipedalwalker_ppo_project2" target="_blank" rel="noreferrer">
+          <div class="project-top">
+            <div>
+              <h3>PPO BipedalWalker RL</h3>
+              <p>
+                Reinforcement learning project training an autonomous walking agent in Gymnasium using PPO,
+                with hyperparameter comparison, multiple seeds, plots and deterministic evaluation.
+              </p>
+            </div>
+            <span class="badge">AI/ML</span>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Python</span>
+            <span class="tag">Gymnasium</span>
+            <span class="tag">PPO</span>
+            <span class="tag">stable-baselines3</span>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/Kacper0510/archit" target="_blank" rel="noreferrer">
+          <div class="project-top">
+            <div>
+              <h3>Archit Language Project</h3>
+              <p>
+                Programming language / compiler-related project with parsing, AST processing and type checking.
+                Shows deeper computer science skills beyond ordinary web CRUD apps.
+              </p>
+            </div>
+            <span class="badge">Compiler</span>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Java</span>
+            <span class="tag">ANTLR</span>
+            <span class="tag">AST</span>
+            <span class="tag">Type checking</span>
+          </div>
+        </a>
+
+        <a class="project" href="https://github.com/robertert/bonnibel" target="_blank" rel="noreferrer">
+          <div class="project-top">
+            <div>
+              <h3>Bonnibel — Project & Membership</h3>
+              <p>
+                Team web application work around projects and memberships. Useful as proof of collaboration,
+                frontend/backend integration and working with an existing codebase.
+              </p>
+            </div>
+            <span class="badge">Teamwork</span>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Web app</span>
+            <span class="tag">Frontend</span>
+            <span class="tag">API</span>
+            <span class="tag">Team project</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-heading">
+        <h2>Skills</h2>
+        <p>The stack I use across university projects, personal prototypes and engineering experiments.</p>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>Languages</h3>
+          <p>Python, Java, C, C#, JavaScript/TypeScript, SQL basics.</p>
+        </div>
+        <div class="skill-card">
+          <h3>AI / ML</h3>
+          <p>scikit-learn, TensorFlow/Keras, pandas, NumPy, reinforcement learning, experiment reports.</p>
+        </div>
+        <div class="skill-card">
+          <h3>IoT / Embedded</h3>
+          <p>ESP32, ESP-IDF, FreeRTOS tasks, GPIO, ADC, I2C sensors, MQTT, WiFi provisioning.</p>
+        </div>
+        <div class="skill-card">
+          <h3>Software engineering</h3>
+          <p>Git, REST APIs, databases, Docker basics, testing mindset, documentation and deployment basics.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-heading">
+        <h2>About me</h2>
+        <p>I prefer building projects that connect several layers of a system instead of only following tutorials.</p>
+      </div>
+
+      <div class="about">
+        <div class="about-card">
+          <h3>What I am aiming for</h3>
+          <p>
+            I am developing toward roles connected with software engineering, MLOps, cybersecurity and AI-enabled systems.
+            My strongest projects combine hardware, backend logic, cloud/database integration and user-facing interfaces.
+          </p>
+        </div>
+        <div class="about-card">
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>Smart Alarm IoT</strong>
+              <span>Full-stack IoT security prototype with ESP32, MQTT and Firebase.</span>
+            </div>
+            <div class="timeline-item">
+              <strong>Reinforcement learning</strong>
+              <span>PPO experiments, learning curves, model evaluation and reporting.</span>
+            </div>
+            <div class="timeline-item">
+              <strong>Compiler / language tooling</strong>
+              <span>Parsing, AST visitors and type-checking logic in Java.</span>
+            </div>
+            <div class="timeline-item">
+              <strong>Web projects</strong>
+              <span>Frontend and integration work in team-based university projects.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact">
+        <div>
+          <h2>Let’s build something useful.</h2>
+          <p>
+            I am open to internships, junior opportunities and project collaboration in software engineering,
+            AI, cybersecurity and IoT.
+          </p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://github.com/Yeetoo45" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn" href="mailto:dawid.wecirz@gmail.com">Email</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="page">© 2026 Dawid Wecirz. Built with plain HTML and CSS on GitHub Pages.</div>
+  </footer>
 </body>
 </html>
